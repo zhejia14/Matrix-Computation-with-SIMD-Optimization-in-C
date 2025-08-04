@@ -49,7 +49,7 @@ The 200 resulting values are written to `output.txt`.
 ---
 ## 📊 Performance Results (Measured)
 
-Executed on: Linux (x86_64), GCC 9.4.0, Intel Core i7-XXXX  
+Executed on: Linux (x86_64), GCC 11.4.0, Intel Core i5-XXXX  
 Input: `data.txt` with 400×198 floats
 
 | Stage      | Naive Version | SIMD Version | Speedup |
