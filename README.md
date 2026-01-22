@@ -5,11 +5,11 @@ A high-performance C program that computes the sum of element-wise products betw
 Compute `sum[i] = Σ(A[i][j] * B[k][j])` for all `i`, `j`, `k`, where `A` and `B` are 200×198 matrices loaded from a file.
 
 **Key Features**:
-- SIMD acceleration using SSE (`__m128` and `_mm_mul_ps`)
-- 16-byte memory alignment for optimal vectorization
-- Input/output file handling with error checking
-- Fine-grained performance profiling (read, compute, write)
-- Data padding to enable vectorized operations
+  - SIMD acceleration using SSE (`__m128` and `_mm_mul_ps`)
+  - 16-byte memory alignment for optimal vectorization
+  - Input/output file handling with error checking
+  - Fine-grained performance profiling (read, compute, write)
+  - Data padding to enable vectorized operations
 
 ---
 
@@ -63,25 +63,25 @@ Input: `data.txt` with 400×198 floats
 ## Code Structure
 
 * `main.c`
-- Read `data.txt` into matrices `A` and `B`
-- Pad data to 200 columns for SIMD compatibility
-- Compute `sum[i]` for each row using `MulSum()` function
-- Write results to `output.txt`
-- Print timing breakdown
+  - Read `data.txt` into matrices `A` and `B`
+  - Pad data to 200 columns for SIMD compatibility
+  - Compute `sum[i]` for each row using `MulSum()` function
+  - Write results to `output.txt`
+  - Print timing breakdown
 
 * `MulSum(float A[][200], float B[][200], int i)`
-- Takes a row `i` from matrix `A`
-- Loops over all rows of `B`
-- Uses SSE to compute dot-product-like accumulation
-- Returns the total sum of all products
+  - Takes a row `i` from matrix `A`
+  - Loops over all rows of `B`
+  - Uses SSE to compute dot-product-like accumulation
+  - Returns the total sum of all products
 
 ---
 
 ## Build & Run
 
 * **Prerequisites**
-- GCC (supports SSE intrinsics)
-- POSIX system (Linux/macOS)
+  - GCC (supports SSE intrinsics)
+  - POSIX system (Linux/macOS)
 
 * **Compile**
 ```
