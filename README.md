@@ -30,18 +30,18 @@ The 200 resulting values are written to `output.txt`.
 
 ## Optimization Strategy
 
-### SIMD Vectorization (SSE)
-- Original data size: 198 floats per row → not divisible by 4 (required for `__m128`)
-- **Solution**: Pad each row to 200 elements (add 2 zeros) → 200 ÷ 4 = 50 vector groups
-- Use `__m128` to process 4 floats at once with `_mm_mul_ps()`
-- Reduce each vector result by horizontal sum (manual add of 4 components)
+* **SIMD Vectorization (SSE)**
+  - Original data size: 198 floats per row → not divisible by 4 (required for `__m128`)
+  - **Solution**: Pad each row to 200 elements (add 2 zeros) → 200 ÷ 4 = 50 vector groups
+  - Use `__m128` to process 4 floats at once with `_mm_mul_ps()`
+  - Reduce each vector result by horizontal sum (manual add of 4 components)
 
-### Memory Alignment
-- Declare matrices with `__attribute__((aligned(16)))` to ensure 16-byte alignment
-- Enables safe casting to `__m128*` and avoids performance penalties
+* **Memory Alignment**
+  - Declare matrices with `__attribute__((aligned(16)))` to ensure 16-byte alignment
+  - Enables safe casting to `__m128*` and avoids performance penalties
 
-### Performance Measurement
-- Use `clock_gettime(CLOCK_MONOTONIC)` to measure:
+* **Performance Measurement**
+  - Use `clock_gettime(CLOCK_MONOTONIC)` to measure:
   - File reading time
   - Computation time (core SIMD loop)
   - File writing time
@@ -62,14 +62,14 @@ Input: `data.txt` with 400×198 floats
 
 ## Code Structure
 
-### `main.c`
+* `main.c`
 - Read `data.txt` into matrices `A` and `B`
 - Pad data to 200 columns for SIMD compatibility
 - Compute `sum[i]` for each row using `MulSum()` function
 - Write results to `output.txt`
 - Print timing breakdown
 
-### `MulSum(float A[][200], float B[][200], int i)`
+* `MulSum(float A[][200], float B[][200], int i)`
 - Takes a row `i` from matrix `A`
 - Loops over all rows of `B`
 - Uses SSE to compute dot-product-like accumulation
@@ -79,11 +79,11 @@ Input: `data.txt` with 400×198 floats
 
 ## Build & Run
 
-### Prerequisites
+* **Prerequisites**
 - GCC (supports SSE intrinsics)
 - POSIX system (Linux/macOS)
 
-### Compile
+* **Compile**
 ```
 gcc -O2 -msse -o matrix_simd SIMD.c
 ```
