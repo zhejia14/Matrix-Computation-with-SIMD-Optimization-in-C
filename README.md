@@ -1,10 +1,10 @@
 # Matrix-Computation-with-SIMD-Optimization-in-C
 A high-performance C program that computes the sum of element-wise products between rows of two matrices using **SIMD (Single Instruction, Multiple Data)** optimization via SSE intrinsics. This project demonstrates low-level performance tuning, memory alignment, and precise timing measurement.
 
-🎯 **Goal**:  
+**Goal**:  
 Compute `sum[i] = Σ(A[i][j] * B[k][j])` for all `i`, `j`, `k`, where `A` and `B` are 200×198 matrices loaded from a file.
 
-🚀 **Key Features**:
+**Key Features**:
 - SIMD acceleration using SSE (`__m128` and `_mm_mul_ps`)
 - 16-byte memory alignment for optimal vectorization
 - Input/output file handling with error checking
@@ -13,7 +13,7 @@ Compute `sum[i] = Σ(A[i][j] * B[k][j])` for all `i`, `j`, `k`, where `A` and `B
 
 ---
 
-## 🧠 Problem Description
+## Problem Description
 
 Given a `data.txt` file with 400 lines and 198 floating-point numbers per line:
 - First 200 lines → matrix `A` (200×198)
@@ -28,26 +28,26 @@ The 200 resulting values are written to `output.txt`.
 
 ---
 
-## ⚙️ Optimization Strategy
+## Optimization Strategy
 
-### 🔹 SIMD Vectorization (SSE)
+### SIMD Vectorization (SSE)
 - Original data size: 198 floats per row → not divisible by 4 (required for `__m128`)
 - **Solution**: Pad each row to 200 elements (add 2 zeros) → 200 ÷ 4 = 50 vector groups
 - Use `__m128` to process 4 floats at once with `_mm_mul_ps()`
 - Reduce each vector result by horizontal sum (manual add of 4 components)
 
-### 🔹 Memory Alignment
+### Memory Alignment
 - Declare matrices with `__attribute__((aligned(16)))` to ensure 16-byte alignment
 - Enables safe casting to `__m128*` and avoids performance penalties
 
-### 🔹 Performance Measurement
+### Performance Measurement
 - Use `clock_gettime(CLOCK_MONOTONIC)` to measure:
   - File reading time
   - Computation time (core SIMD loop)
   - File writing time
 
 ---
-## 📊 Performance Results (Measured)
+## Performance Results (Measured)
 
 Executed on: Linux (x86_64), GCC 11.4.0, Intel Core i5-XXXX  
 Input: `data.txt` with 400×198 floats
@@ -58,9 +58,9 @@ Input: `data.txt` with 400×198 floats
 | Compute   | 16,707,207 ns | 6,846,251 ns | **2.44×** |
 | Write     | 49,754 ns     | 52,531 ns    | ~0.95×  |
 
-✅ **Conclusion**: The SIMD-optimized version achieves **2.44× speedup in the computation phase**, demonstrating effective use of SSE vectorization for data-parallel workloads.
+**Conclusion**: The SIMD-optimized version achieves **2.44× speedup in the computation phase**, demonstrating effective use of SSE vectorization for data-parallel workloads.
 
-## 📋 Code Structure
+## Code Structure
 
 ### `main.c`
 - Read `data.txt` into matrices `A` and `B`
@@ -77,7 +77,7 @@ Input: `data.txt` with 400×198 floats
 
 ---
 
-## 🛠️ Build & Run
+## Build & Run
 
 ### Prerequisites
 - GCC (supports SSE intrinsics)
